@@ -16,15 +16,15 @@ SINON
 $âge = 60;
 $retraite = 55;
 
-$différences1 = $âge - $retraite;
-$différences2 = $retraite - $âge;
+$différence1 = $âge - $retraite;
+$différence2 = $retraite - $âge;
 
-if ($âge > 55) {
-        echo "Vous êtes à la retraite depuis $différences1 années";   
-} elseif ($âge < 55) {
-        echo "Vous êtes à la retraite dans $différences2 années";
+if ($âge > $retraite) {
+        echo "Vous êtes à la retraite depuis $différence1 années";   
+} elseif ($âge < $retraite) {
+        echo "Vous êtes à la retraite dans $différence2 années";
 } else {
-    echo "La retraite, c'est pour cette année";
+        echo "La retraite, c'est pour cette année";
 }
 
 ?>

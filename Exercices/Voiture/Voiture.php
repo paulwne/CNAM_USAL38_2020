@@ -3,6 +3,8 @@ define("VILLE", "ville");
 define("AUTOROUTE", "autoroute");
 
 class Voiture {
+    public static $nb_voiture_crees = 0;
+
     private $marque;
     private $modele;
     private $vitesse_courante;
@@ -11,6 +13,7 @@ class Voiture {
         $this->marque = $marque;
         $this->modele = $modele;
         $this->vitesse_courante = 0;
+        self::$nb_voiture_crees++;
     }
 
     public function get_marque() {
@@ -70,3 +73,13 @@ class Voiture {
         echo "Je m'arrête à une intersection <br>";
         $this->vitesse_courante = 0;
     }
+
+    public function ralentir($vitesse) {
+        $vitesse -= 2; 
+    }
+
+    public function depasser($autre_voiture) {
+        echo 'Je dépasse la voiture ' . $autre_voiture->get_modele() . '<br>';
+        $autre_voiture->set_vitesse_courante($autre_voiture->get_vitesse_courante() -10);
+    }
+}

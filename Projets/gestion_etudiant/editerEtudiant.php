@@ -1,18 +1,15 @@
 <?php
 
+$code = $_GET['code'];
+
+require_once ("verificationAuthentification.php");
 require_once ("connexion.php");
 
-$sql = "SELECT code, nom, photo FROM etudiant";
-$result = $conn->query($sql);
+$req = "select code, nom, mail from etudiant where code = $code";
+$rs = $conn->query($req);
 
-/* if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    echo "code: " . $row["code"]. " - Nom: " . $row["nom"]. "<br>";
-  }
-} else {
-  echo "0 results";
-} */
+$row = $rs->fetch_assoc();
+
 ?>
 
 <!DOCTYPE html>
@@ -20,22 +17,38 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Editer Étudiant</title>
 </head>
 <body>
-    <table border="1" width="80%">
-        <tr>
-            <th>CODE</th><th>NOM</th><th>PHOTO</th>
-        </tr>
-        <?php while($row = $result->fetch_assoc()) { ?>
+<form action="modifierEtudiant.php" method="post" enctype="multipart/form-data">
+        <table>
             <tr>
-                <td><?php echo($row['code']) ?></td>
-                <td><?php echo($row['nom']) ?></td>
-                <td><img src="images/<?php echo($row['photo']) ?>"></td>
-                <td><a href="supprimerEtudiant.php?code=<?php echo($row['code']) ?>">Supprimer</a></td>
-                <td><a href="editerEtudiant.php?code=<?php echo($row['code']) ?>">Modifier</a></td>
+                <td>Code :</td>
+                <td><input type="text" name="code" value="<?php echo($row['code']) ?>" readonly="true"></td>
             </tr>
-        <?php } ?>
-    </table>
+            <tr>
+                <td>Nom :</td>
+                <td><input type="text" name="nom" value="<?php echo($row['nom']) ?>"></td>
+            </tr>
+            <tr>
+                <td>Mail :</td>
+                <td><input type="text" name="mail" value="<?php echo($row['mail']) ?>"></td>
+            </tr>
+            <tr>
+                <td>Photo :</td>
+                <td><input type="file" name="photo"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Enregistrer"></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>
+
+<?php
+
+$conn->close();
+
+?>
